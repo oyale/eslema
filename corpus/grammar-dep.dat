@@ -1,0 +1,1242 @@
+%Autor: Montserrat Civit Torruella  e-mail: 	civit@lsi.upc.es
+%						civit@talp.upc.es
+%%%%%%%GRAMA.DR2%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%Agrupacions de sintagmes: 
+%grupo-nominal, grupo-verbal, grupo-prep,grup-adj, grup-adv
+%grupo-verbal= formes simples, formes pasives, formes compostes
+%grupo-prep= preposicio + 1grupo-nominal
+%grupo-nominal= det+nom; det+nom+(grup-adj)+ (grupo-prep(de))
+%grup-adj= adj; adv+adj
+%grup-adv=
+%relatius=
+%conj-subord=
+%sn= det + grupo-nominal
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Regles que afegeixo per provarles:
+
+%title 1.- Grupos nominales
+grupo-nominal ==> Zm | Zp | Zu.  % monedes | proporcions | unitats
+
+sn ==> espec-ms, +grupo-nominal.
+sn ==> espec-fs, +grupo-nominal.
+sn ==> espec-mp, +grupo-nominal.
+sn ==> espec-fp, +grupo-nominal.
+
+%title 2.- Nome propiu
+%%w-ms ==> NP00000 | NP00G00 | NP00SP0 | NP00O00 | NP00V00.
+%%w-fs ==> NP00000 | NP00G00 | NP00SP0 | NP00O00 | NP00V00.
+%%w-mp ==> NP00000 | NP00G00 | NP00SP0 | NP00O00 | NP00V00.
+%%w-fp ==> NP00000 | NP00G00 | NP00SP0 | NP00O00 | NP00V00.
+
+w-ms ==> NP*.
+w-fs ==> NP*.
+w-mp ==> NP*.
+w-fp ==> NP*.
+
+%title 3.- Frase alverbial
+%hai un mes / dos selmanes, etc.
+sn ==> +v-haber-3p, sn-tmp.
+
+v-haber-3p ==> VMIP3S00<haber> | VMII3S00 <haber> | VMIS3S00<haber> | VMIM3S00<haber> | VMSP3S00<haber> |VMSI3S00<haber> | VMIF3S00<haber> | VMIC3S00<haber>.
+
+sn-tmp ==> quant-ms, s-a-ms, +nom-tmp-ms | quant-ms, +nom-tmp-ms | s-a-ms, +nom-tmp-ms | nom-tmp-ms | quant-fs, s-a-fs, +nom-tmp-fs.
+sn-tmp ==> quant-fs, +nom-tmp-fs | s-a-fs, +nom-tmp-fs | quant-mp, s-a-mp, +nom-tmp-mp | quant-mp, +nom-tmp-mp | s-a-mp, +nom-tmp-mp.
+sn-tmp ==>  nom-tmp-mp | quant-fp, s-a-fp, +nom-tmp-fp | quant-fp, +nom-tmp-fp | s-a-fp, +nom-tmp-fp | nom-tmp-fp.
+
+
+nom-tmp-ms ==> NCMS0000<mes> | NCMS0000<día> | NCMS0000<añu> | NCMS0000<sieglu> | NCMS0000<llustru> | NCMS0000<minutu> | NCMS0000<segundu> | NCMS0000<tiempu>.
+nom-tmp-fs ==> NCFS0000<temporada> | NCFS0000<década> | NCFS0000<selmana> | NCFS0000<hora> | NCFS0000<ratu>.
+nom-tmp-mp ==> NCMP0000<mes> | NCMP0000<día> | NCMP0000<añu> | NCMP0000<sieglu> | NCMP0000<llustru> | NCMP0000<minutu> | NCMP0000<segundu> | NCMP0000<tiempu>.
+nom-tmp-fp ==> NCFP0000<temporada> | NCFP0000<década>.
+
+
+quant-ms ==> num-ms | Z | indef-ms.
+quant-fs ==> num-fs | Z | indef-fs.
+quant-mp ==> num-mp | Z | indef-mp.
+quant-fp ==> num-fp | Z | indef-fp.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%	elements pseudoterminals ==> terminals
+%%%	elements literals
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%title 4.-Interxecciones
+interjeccio ==> I.
+
+%title 5.-Feches
+data ==> W.
+data ==> espec-ms, +W.		%el martes 13-05-02
+data ==> data, +coord, data.	%(d2)
+
+%title 5.-Cifres
+numero ==> Z.
+
+%title 6.-Axetivos
+a-ms ==> AQ0000 | AQ0CN0 | AQ0CS0 | AQ0MS0 | AQ0MSP | AO0MS0 | AQD000 | AQDCN0 | AQDCS0 | AQDMS0 | AQDMSP | AODMS0.
+a-ms ==> AQA000 | AQACN0 | AQACS0 | AQAMS0 | AQAMSP | AOAMS0 | AQX000 | AQXCN0 | AQXCS0 | AQXMS0 | AQXMSP | AOXMS0.
+a-ms ==> AQS000 | AQSCN0 | AQSCS0 | AQSMS0 | AQSMSP | AOSMS0 | AQC000 | AQCCN0 | AQCCS0 | AQCMS0 | AQCMSP | AOCMS0. % ?|?|alegre|bonito|castigado|primero
+a-fs ==> AQ0000 | AQ0CN0 | AQ0CS0 | AQ0FS0 | AQ0FSP | AO0FS0 | AQD000 | AQDCN0 | AQDCS0 | AQDFS0 | AQDFSP | AODFS0.
+a-fs ==> AQA000 | AQACN0 | AQACS0 | AQAFS0 | AQAFSP | AOAFS0 | AQX000 | AQXCN0 | AQXCS0 | AQXFS0 | AQXFSP | AOXFS0.
+a-fs ==> AQS000 | AQSCN0 | AQSCS0 | AQSFS0 | AQSFSP | AOSFS0 | AQC000 | AQCCN0 | AQCCS0 | AQCFS0 | AQCFSP | AOCFS0. % ? | ?|alegre|bonita|castigada|primera
+a-mp ==> AQ0000 | AQ0CN0 | AQ0CP0 | AQ0MP0 | AQ0MPP | AO0MP0 | AQD000 | AQDCN0 | AQDCP0 | AQDMP0 | AQDMPP | AODMP0.
+a-mp ==> AQA000 | AQACN0 | AQACP0 | AQAMP0 | AQAMPP | AOAMP0 | AQX000 | AQXCN0 | AQXCP0 | AQXMP0 | AQXMPP | AOXMP0.
+a-mp ==> AQS000 | AQSCN0 | AQSCP0 | AQSMP0 | AQSMPP | AOSMP0 | AQC000 | AQCCN0 | AQCCP0 | AQCMP0 | AQCMPP | AOCMP0. % ?|?|alegres|bonitos|castigados|primeros
+a-fp ==> AQ0000 | AQ0CN0 | AQ0CP0 | AQ0FP0 | AQ0FPP | AO0FP0 | AQD000 | AQDCN0 | AQDCP0 | AQDFP0 | AQDFPP | AODFP0.
+a-fp ==> AQA000 | AQACN0 | AQACP0 | AQAFP0 | AQAFPP | AOAFP0 | AQX000 | AQXCN0 | AQXCP0 | AQXFP0 | AQXFPP | AOXFP0.
+a-fp ==> AQS000 | AQSCN0 | AQSCP0 | AQSFP0 | AQSFPP | AOSFP0 | AQC000 | AQCCN0 | AQCCP0 | AQCFP0 | AQCFPP | AOCFP0. % ?|?|alegres|bonitas|castigadas|primeras
+
+%title 7.-Alverbios
+neg ==> RN.  
+cuantif ==> RG(más).
+cuantif ==> RG(menos).
+cuantif ==> RG(casi).
+cuantif ==> RG(muy).
+
+%title 8.- Preposiciones
+prep ==> SPS00000.
+prep ==> CS(como).
+
+%Preposicions en contracció
+prepc-ms ==> SPCMS.
+
+%Conjuncions de subordinacio
+conj-subord ==> CS.
+
+%Conjuncions de coordinacio
+coord ==> CC.
+
+%title 9.- Pronomes suxetu
+pron-suj-s ==> PP1CSN00 | PP2CSN00.  % yo | tu
+pron-suj-ms ==> PP3MS000 | PP2CS00P.	% él | usté
+pron-suj-neutro ==> PP3NS000.	% metemos 'ello' en una regla nueva  y lo quitamos de 'pron-suj-ms'
+pron-suj-fs ==> PP3FS000 | PP2CS00P. %ella | usté
+pron-suj-mp ==> PP1MP000 | PP2MP000 | PP3MP000 | PP2CP00P.	%nosotros|vosotros|ellos|ustedes
+pron-suj-fp ==> PP1FP000 | PP2FP000 | PP3FP000 | PP2CP00P.	%nosotres|vosotres|elles|ustedes
+
+pron-suj ==> pron-suj-s | pron-suj-ms | pron-suj-fs | pron-suj-mp | pron-suj-fp. %per agrupar tots els pron-suj.
+
+sn ==> +pron-suj-s, DI0MS000(mesmu)   | +pron-suj-s, DI0FS000(mesma) |+pron-suj-s, DI0NN000(mesmo).
+sn ==> +pron-suj-ms, DI0MS000(mesmu)  | +pron-suj-fs, DI0FS000(mesma) |+pron-suj-neutro, DI0NN000(mesmo) | +pron-suj-ms, DI0NN000(mesmo) | +pron-suj-fs, DI0NN000(mesmo).
+sn ==> +pron-suj-mp, DI0MP000(mesmos) | +pron-suj-fp, DI0FP000(mesmes).
+sn ==> +pron-tonico, DI0MS000(mesmo)    | +pron-tonico, DI0FS000(mesma).
+sn ==> +pron-tonico, DI0MP000(mesmos)   | +pron-tonico, DI0FP000(mesmas).
+
+%title 10.- Pronomes átonos
+pron-atonos ==> paton-s | paton-p | paton-mp | paton-fp | paton-ms | paton-fs | paton.
+pron-atonos ==> PP3CN000.	%se
+
+paton-s ==> PP1CS000 | PP2CS000 | PP3CSD00 | PP3CSA00.  % me | te | le | le (acusatiu)
+paton-p ==> PP1CP000 | PP2CP000 | PP3CPD00 | PP3CPA00.	% nos | os | les | les (acusatiu)
+paton-mp ==> PP3MPA00.	%los: ve així del tagger
+paton-fp ==> PP3FPA00.	%las: ve així del tagger
+paton-fs ==> PP3FSA00.	%la
+paton-ms ==> PP3MSA00.	%lo: CD masculí singular
+paton ==> PP3CNA00.	%lo: atribut: inespecificat
+
+morf-pron ==> P010S000 | P010P000 | P020S000 | P020P000.
+morf-pron ==> P0300000.	%se-pronominal
+
+morfema-verbal ==> P0000000.	%se impersonal/passiu
+grupo-verbal ==> morf-pron, +grupo-verbal.
+
+
+pron-tonico ==> PP1CSO(mi).	%mi: cas oblic
+pron-tonico ==> PP2CSO(ti).	%ti
+pron-tonico ==> PP3CSO(sí).	%sí
+
+
+grupo-prep ==> PP1CSO00(conmigo).	%literal per distingir-lo de l'anterior
+grupo-prep ==> PP2CSO00(contigo).
+grupo-prep ==> PP3CSO00(consigo).
+
+%title 11.- Pronomes demostrativos
+pdem-ms ==> PD0MS000. 	%ésti/ési/áquel
+pdem-fs ==> PD0FS000. 	%ésta/ésa/áquella
+pdem-n==> PD0NN00.	%ésto/éso/áquello
+pdem-mp ==> PD0MP000.  	%éstos/ésos/áquellos
+pdem-fp ==> PD0FP000.	%éstas/ésas/áquellas
+
+
+%title 12.-Pronomes interrogativos
+adv-interrog ==> PT000000.		%ónde/cómo/cuándo 
+pinterrog-ms ==> PT0MS000.		%cuánto
+pinterrog-fs ==> PT0FS000.		%cuánta
+pinterrog-mp ==> PT0MP000.		%cuántos
+pinterrog-fp ==> PT0FP000.		%cuántas
+pinterrog-s ==> PT0CS000.		%quién
+pinterrog-p ==> PT0CP000.		%quién
+pinterrog ==> PT0CN000 | PT0MS000 | PT0FS000 | PT0NN000.	%qué cuál cuála cuálo
+
+
+%title 13.-Pronomes posesivos 
+
+% el_mío|el_nuestro|el_tuyo|el_vuestro|el_suyo
+pposs-ms ==> DA0MS0, +DP1MSS|DA0MS0, +DP1MSP|DA0MS0, +DP2MSS|DA0MS0, +DP2MSP|DA0MS0, +DP3MS0.  
+
+% la_mía|la_nuestra|la_tuya|la_vuestra|la_suya
+pposs-fs ==> DA0FS0, +DP1FSS|DA0FS0, +DP1FSP|DA0FS0, +DP2FSS|DA0FS0, +DP2FSP|DA0FS0, +DP3FS0. 
+
+% los_míos|los_nuestros|los_tuyos|los_vuestros|los_suyos
+pposs-mp ==> DA0MP0, +DP1MPS|DA0MP0, +DP1MPP|DA0MP0, +DP2MPS|DA0MP0, +DP2MPP|DA0MP0, +DP3MP0. 
+
+% las_mías|las_nuestras|las_tuyas|las_vuestras|las_suyas
+pposs-fp ==> DA0FP0, +DP1FPS|DA0FP0, +DP1FPP|DA0FP0, +DP2FPS|DA0FP0, +DP2FPP|DA0FP0, +DP3FP0. 
+
+
+%title 14.-Pronomes relativos 
+%cuyo-ms ==> PR0MS000(cuyo).	%cuyo
+%cuyo-fs ==> PR0FS000(cuya).	%cuya
+%cuyo-mp ==> PR0MP000(cuyos).	%cuyos
+%cuyo-fp ==> PR0FP000(cuyas).	%cuyas
+%cual-s ==> PR0CS000(cual).	
+%cual-p ==> PR0CP000(cuales).	
+%quien-s ==> PR0CS000(quien).	
+%quien-p ==> PR0CP000(quienes).
+prel ==> PR0CN000.	%que
+prel-ms ==> PR0MS000(cuanto).	%cuanto
+prel-mp ==> PR0MP000(cuantos).	%cuantos
+prel-fs ==> PR0FS000(cuanta).	%cuanta
+prel-fp ==> PR0FP000(cuantas).	%cuantas
+
+%Pronoms relatius de lloc
+prel-adv ==> PR000000.	%donde, como, cuando
+ 
+%title 15.-Pronomes indefiníos 
+pindef-ms ==> PI0MS000 | PI0CS000.  %alguno | algo/alguien/nada/nadie
+pindef-fs ==> PI0FS000.	%alguna
+pindef-mp ==> PI0MP000 | PI0CP000.	%algunos|demás
+pindef-fp ==> PI0FP000 | PI0CP000.	%algunas|demás
+
+
+
+%title 16.-Pronomes numberales 
+%pnum-mp ==> PN0CP000 | PN0MP000.
+%pnum-fp ==> PN0CP000 | PN0FP000.
+%pnum-ms ==> PN0MS000 | PN0CS000. %cuádruple, doble, triple, ... 
+%pnum-fs ==> PN0FS000.
+
+pnum-mp ==> Z.
+pnum-fp ==> Z.
+pnum-ms ==> Z. %cuádruple, doble, triple, ... 
+pnum-fs ==> Z.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%NOM
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%title 17.-Nome común 
+
+% xx|chico|mar,oyente|limpiabotas|amateur
+n-ms ==> NC0000* | NCMS00* | NCCS00* | NCMN00* | NCCN00*.  
+
+% xx|chica|mar,oyente|tesis|xx
+n-fs ==> NC0000* | NCFS00* | NCCS00* | NCFN00* | NCCN00*.  
+
+% xx|chicos|mares,oyentes|limpiabotas|xx
+n-mp ==> NC0000* | NCMP00* | NCCP00* | NCMN00* | NCCN00*.  
+
+% xx|chicas|mares,oyentes|tesis|xx
+n-fp ==> NC0000* | NCFP00* | NCCP00* | NCFN00* | NCCN00*.  
+
+%title 18.-Artículos
+articulo-ms ==> DA0MS000 | DA0NS000. % el|lo
+articulo-mp ==> DA0MP000. %los
+articulo-fs ==> DA0FS000. %la
+articulo-fp ==> DA0FP000. %las
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Determinants
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%title 19.-Determinantes cardinales
+
+%%%Determinants cardinals
+%num-ms ==> DN0MS0 | DN0CS0.
+%num-fs ==> DN0CS0 | DN0FS0.
+%num-mp ==> DN0MP0 | DN0CP0.
+%num-fp ==> DN0FP0 | DN0CP0.
+
+num-ms ==> Z.
+num-fs ==> Z.
+num-mp ==> Z.
+num-fp ==> Z.
+
+%title 20.-Determinantes demostrativos
+dem-ms ==> DD0MS0. 	% esti/esi/ aquel
+dem-fs ==> DD0FS0.	% esta /esa/aquella
+dem-n ==> DDONN0. 	% esto/eso/ aquello
+dem-mp ==> DD0MP0. 	% estos /esos /aquellos
+dem-fp ==> DD0FP0. 	% estes /eses /aquelles
+
+
+%title 21.-Determinantes posesivos
+
+% mio|to|so|nuestro|vuestro|so|sos
+pos-ms-pos ==> DP1CSS|DP2CSS|DP3CS0|DP1MSP|DP2MSP|DP3MS0|DP3MP0. 
+% mios|tos|sos|nuestros|vuestros
+pos-mp-pos ==> DP1CPS|DP2CPS|DP3CP0|DP1MPP|DP2MPP. 
+% mio|to|so|nuestra|vuestra|so|sos
+pos-fs-pos ==> DP1CSS|DP2CSS|DP3CS0|DP1FSP|DP2FSP|DP3FS0|DP3FP0. 
+% mios|tos|sos|nuestres|vuestres
+pos-fp-pos ==> DP1CPS|DP2CPS|DP3CP0|DP1FPP|DP2FPP. 
+
+
+% el mio | el to | el so| el nuestro | el vuestro  | el so | el sos
+pos-ms ==> DA0MS000, pos-ms-pos.
+% la mio| la to| la so| la nuestra| la vuestra | la sos
+pos-fs ==> articulo-fs, pos-fs-pos. 
+% los mios| los tos| los sos| los nuestros| los vuestros
+pos-mp ==> articulo-mp, pos-mp-pos. 
+% las mios| las tos| las sos| las nuestres| las vuestres
+pos-fp ==> articulo-fp, pos-fp-pos. 
+
+ 
+%title 22.-Determinantes interrogativos
+int-ms ==> DT0MS0 | DT0CN0. %cuánto | qué
+int-fs ==> DT0FS0 | DT0CN0. %cuánta | qué
+int-mp ==> DT0MP0 | DT0CN0. %cuántos | qué
+int-fp ==> DT0FP0 | DT0CN0. %cuántas | qué
+
+%title 23.-Determinantes exclamativos
+exc-ms ==> DE0CN0. % qué
+exc-mp ==> DE0CN0. % qué
+exc-fs ==> DE0CN0. % qué
+exc-fp ==> DE0CN0. % qué
+
+%title 24.-Determinantes indefiníos
+indef-ms==> DI0MS000.	%tal
+indef-fs==> DI0FS000. 	%tala
+indef-n==> DI0N0000.	%talo
+indef-mp==> DI0MP000.	%talos
+indef-fp==> DI0FP000.	%tales
+
+indef-ms ==> DI0MS000 | DI0CS000. % cierto | cada
+indef-fs ==> DI0FS000 | DI0CS000. % cierta | cada
+indef-mp ==> DI0MP000 | DI0CP000. % ciertos | bastantes
+indef-fp ==> DI0FP000 | DI0CP000. % ciertas | bastantes
+
+relativo==> quien-s | quien-p | prel.	% quien| quienes | que
+relativo==> prel-adv | prep, +prel-adv.	% donde, como, cuando
+relativo==> prel-mp | prel-ms | prel-fp | prel-fs.  % cuanto
+relativo==> prel-mp, +grupo-nominal-mp. %cuanto vino
+relativo==> prel-ms, +grupo-nominal-ms.
+relativo==> prel-fp, +grupo-nominal-fp.
+relativo==> prel-fs, +grupo-nominal-fs.
+
+relativo==> +prepc-ms, cual-s.	%al/del cual
+relativo==> +prep, articulo-ms, cual-s.	%con el cual
+relativo==> +prep, articulo-fs, cual-s. %con la cual
+relativo==> +prep, articulo-mp, cual-p. %con los cuales
+relativo==> +prep, articulo-fp, cual-p. %con las cuales
+relativo==> articulo-ms, +cual-s | articulo-fs, +cual-s. %el cual | la cual
+relativo==> articulo-mp, +cual-p | articulo-fp, +cual-p. %los cuales | las cuales
+
+relativo==> cuyo-ms, +grupo-nominal-ms | cuyo-fs, +grupo-nominal-fs. %cuyo amigo
+relativo==> cuyo-mp, +grupo-nominal-mp | cuyo-fp, +grupo-nominal-fp.
+relativo==> +prep, cuyo-ms, grupo-nominal-ms | +prep, cuyo-fs, grupo-nominal-fs.	%con cuyo amigo
+relativo==> +prep, cuyo-mp, grupo-nominal-mp | +prep, cuyo-fp, grupo-nominal-fp.
+
+
+%%%%%%%%%%%%%%%%%%%
+%% ELS PRONOMS PORTEN TOTS "p" DAVANT I DESPRES EL TIPUS%%
+%%%%%%%%%%%%%%%%%%%
+pron-ms ==> pinterrog-s | pinterrog | pron-suj-ms | pdem-ms | pinterrog-ms | pposs-ms | pindef-ms.
+pron-fs ==> pinterrog-s | pinterrog | pron-suj-fs | pdem-fs | pinterrog-fs | pposs-fs | pindef-fs.
+pron-mp ==> pinterrog-p | pron-suj-mp | pdem-mp | pinterrog-mp | pposs-mp | pindef-mp.
+pron-fp ==> pinterrog-p | pron-suj-fp | pdem-fp | pinterrog-fp | pposs-fp | pindef-fp.
+
+
+%%%%%%%%%%%%%
+% determinants
+%%%%%%%%%%%%%
+grup-complex-spec-ms ==> +indef-ms,num-ms.		%otros doce meses
+grup-complex-spec-mp ==> +indef-mp,num-mp.
+%grup-complex-spec-mp ==> num-mp, +coord, num-mp. %dos o tres libros
+%grup-complex-spec-fp ==> num-fp, +coord, num-fp. %dos o tres cosas
+%grup-complex-spec-mp ==> num-ms, +coord, num-mp. %uno o dos
+%grup-complex-spec-fp ==> num-fs, +coord, num-fp. %una o dos
+%grup-complex-spec-ms ==> +indef-ms, coord, indef-ms. %uno y otro
+%grup-complex-spec-fs ==> +indef-fs, coord, indef-fs. %una y otra
+%grup-complex-spec-mp ==> +indef-mp, coord, indef-mp. %unos y otros
+%grup-complex-spec-fp ==> +indef-fp, coord, indef-fp. %unas y otras
+grup-complex-spec-ms ==> +indef-ms,dem-ms.	%todo este
+grup-complex-spec-mp ==> +indef-mp,dem-mp.
+grup-complex-spec-ms ==> +indef-ms,articulo-ms.		%todo el...
+grup-complex-spec-mp ==> +indef-mp,articulo-mp.
+grup-complex-spec-ms ==> RG(casi), +indef-ms,articulo-ms. %casi todo el...
+grup-complex-spec-mp ==> RG(casi), +indef-mp,articulo-mp.
+grup-complex-spec-ms ==> +indef-ms,indef-ms.	
+grup-complex-spec-mp ==> +indef-mp,indef-mp.	%algunos pocos...
+grup-complex-spec-ms ==> +indef-ms,pos-ms.	
+grup-complex-spec-mp ==> +indef-mp,pos-mp.
+grup-complex-spec-ms ==> dem-ms, +num-ms.	%estos tres...
+grup-complex-spec-mp ==> dem-mp, +num-mp.
+grup-complex-spec-ms ==> pos-ms, +num-ms.	%tus tres...
+grup-complex-spec-mp ==> pos-mp, +num-mp.
+grup-complex-spec-ms ==> articulo-ms, +num-ms.	%los dos...
+grup-complex-spec-mp ==> articulo-mp, +num-mp.
+grup-complex-spec-ms ==> articulo-ms, +indef-ms, indef-ms. 
+grup-complex-spec-mp ==> articulo-mp, +indef-mp, indef-mp.
+grup-complex-spec-ms ==> articulo-ms, +indef-ms. 
+grup-complex-spec-mp ==> articulo-mp, +indef-mp.
+
+grup-complex-spec-fs ==> +indef-fs,num-fs.
+grup-complex-spec-fp ==> +indef-fp,num-fp.
+grup-complex-spec-fs ==> +num-fs,num-fs.
+grup-complex-spec-fp ==> +num-fp,num-fp.
+grup-complex-spec-fs ==> +indef-fs,dem-fs.
+grup-complex-spec-fp ==> +indef-fp,dem-fp.
+grup-complex-spec-fs ==> +indef-fs,articulo-fs.
+grup-complex-spec-fp ==> +indef-fp,articulo-fp.
+grup-complex-spec-fs ==> RG(casi), +indef-fs,articulo-fs.
+grup-complex-spec-fp ==> RG(casi), +indef-fp,articulo-fp.
+grup-complex-spec-fs ==> +indef-fs,indef-fs.
+grup-complex-spec-fp ==> +indef-fp,indef-fp.
+grup-complex-spec-fs ==> +indef-fs,pos-fs.
+grup-complex-spec-fp ==> +indef-fp,pos-fp.
+grup-complex-spec-fs ==> dem-fs, +num-fs.
+grup-complex-spec-fp ==> dem-fp, +num-fp.
+grup-complex-spec-fs ==> pos-fs, +num-fs.
+grup-complex-spec-fp ==> pos-fp, +num-fp.
+grup-complex-spec-fs ==> articulo-fs, +num-fs.
+grup-complex-spec-fp ==> articulo-fp, +num-fp.
+grup-complex-spec-fs ==> articulo-fs, +indef-fs, indef-fs.
+grup-complex-spec-fp ==> articulo-fp, +indef-fp, indef-fp. %las bastantes pocas...
+grup-complex-spec-fs ==> articulo-fs, +indef-fs.
+grup-complex-spec-fp ==> articulo-fp, +indef-fp.
+
+grup-complex-spec-fs ==> pos-fs, +indef-fs.
+grup-complex-spec-fp ==> pos-fp, +indef-fp.
+grup-complex-spec-ms ==> pos-ms, +indef-ms.
+grup-complex-spec-mp ==> pos-mp, +indef-mp.
+
+grup-complex-spec-fp ==> +num-fp, num-fp.	%mil seiscientas
+grup-complex-spec-mp ==> +num-mp, num-mp.
+grup-complex-spec-fp ==> +num-fp, num-fp, num-fp.%mil seiscientas setenta
+grup-complex-spec-mp ==> +num-mp, num-mp, num-mp.
+%grup-complex-spec-fp ==> +num-fp, num-fp, coord, num-fp.
+%grup-complex-spec-mp ==> +num-mp, num-mp, coord, num-mp.
+%grup-complex-spec-fp ==> +num-fp, num-fp, num-fp, coord, num-fp.
+%grup-complex-spec-mp ==> +num-mp, num-mp, num-mp, coord, num-mp.
+
+espec-ms ==> grup-complex-spec-ms | cuantif | num-ms | dem-ms | pos-ms | int-ms | exc-ms | indef-ms | num-ms | articulo-ms.
+
+espec-mp ==> grup-complex-spec-mp | cuantif | num-mp | dem-mp | pos-mp | int-mp | exc-mp | indef-mp | num-mp | articulo-mp.
+
+espec-fs ==> grup-complex-spec-fs | cuantif | num-fs | dem-fs | pos-fs | int-fs | exc-fs | indef-fs | num-fs | articulo-fs.
+
+espec-fp ==> grup-complex-spec-fp | cuantif | num-fp | dem-fp | pos-fp | int-fp | exc-fp | indef-fp | num-fp | articulo-fp.
+
+
+%%%%%%%%%%%%%%
+% grup nominal
+%%%%%%%%%%%%%%
+%title 25.-Grupu nominal
+grupo-nominal-ms ==> n-ms | +n-ms, n-fs | +n-ms, n-ms | +n-ms, n-mp  | +n-ms, n-fp.  %gas mostaza (dc2) / hombre rana / hombre caballo
+grupo-nominal-mp ==> n-mp | +n-mp, n-fs | +n-mp, n-ms | +n-mp, n-mp  | +n-mp, n-fp.  %gases mostaza		
+grupo-nominal-fs ==> n-fs | +n-fs, n-fs | +n-fs, n-ms | +n-fs, n-mp  | +n-fs, n-fp.  %la palabra cultura (e2)
+grupo-nominal-fp ==> n-fp | +n-fp, n-fs | +n-fp, n-ms | +n-fp, n-mp  | +n-fp, n-fp.  %las palabras albergue
+
+%%%%%amb SP(de) i a veure qué passa
+
+%%%JAB%% grupo-nominal-ms ==> +n-ms, sp-de | pnum-ms, +sp-de. %%%cientos de miles de personas
+%%%JAB%% grupo-nominal-mp ==> +n-mp, sp-de | pnum-mp, +sp-de.
+%%%JAB%% grupo-nominal-fs ==> +n-fs, sp-de | pnum-fs, +sp-de.
+%%JAB%%  grupo-nominal-fp ==> +n-fp, sp-de | pnum-fp, +sp-de.
+
+sp-de ==> +SPS00000(de), sn | +SPCMS(del), grupo-nominal-ms. 
+
+%%%%%
+
+grupo-nominal-ms ==> w-ms.
+grupo-nominal-mp ==> w-mp.
+grupo-nominal-fp ==> w-fp.
+grupo-nominal-fs ==> w-fs.
+
+grupo-nominal-ms ==> +w-ms, w-ms. 	
+grupo-nominal-ms ==> +n-ms, w-ms.	%Ex.: El presidente Chirac 	
+grupo-nominal-ms ==> +n-ms, s-a-ms.
+grupo-nominal-ms ==> +w-ms, s-a-ms.
+grupo-nominal-ms ==> s-a-ms, +grupo-nominal-ms.
+grupo-nominal-ms ==> +n-ms, pos-ms.	%amigo suyo
+grupo-nominal-ms ==> +n-ms, pdem-ms.	%el chico ése
+
+grupo-nominal-mp ==> +n-mp, s-a-mp.
+grupo-nominal-mp ==> +w-mp, s-a-mp.
+grupo-nominal-mp ==> s-a-mp, +grupo-nominal-mp.
+grupo-nominal-mp ==> +grup-c-nom-mp.
+grupo-nominal-mp ==> +grup-c-nom-mp, s-a-mp.
+grupo-nominal-mp ==> +pnum-mp, pnum-mp.
+grupo-nominal-mp ==> +pnum-mp, pnum-mp, pnum-mp.
+%grupo-nominal-mp ==> +pnum-mp, pnum-mp, coord, pnum-mp.
+%grupo-nominal-mp ==> +pnum-mp, pnum-mp, pnum-mp, coord, pnum-mp.
+grupo-nominal-mp ==> +n-mp, pos-mp.	
+grupo-nominal-mp ==> +n-mp, pdem-mp.	
+
+grupo-nominal-fs ==> +w-fs, w-fs.
+grupo-nominal-fs ==> +n-fs, w-fs. 	
+grupo-nominal-fs ==> +n-fs, s-a-fs.
+grupo-nominal-fs ==> +w-fs, s-a-fs.
+grupo-nominal-fs ==> s-a-fs, +grupo-nominal-fs.
+grupo-nominal-fs ==> +n-fs, pos-fs.
+grupo-nominal-fs ==> +n-fs, pdem-fs.
+
+grupo-nominal-fp ==> +w-fp, s-a-fp.
+grupo-nominal-fp ==> +n-fp, s-a-fp.
+grupo-nominal-fp ==> s-a-fp, +grupo-nominal-fp.
+grupo-nominal-fp ==> +grup-c-nom-fp.
+grupo-nominal-fp ==> +grup-c-nom-fp, s-a-fp.
+grupo-nominal-fp ==> +pnum-fp, pnum-fp.	    %mil seiscientas
+grupo-nominal-fp ==> +pnum-fp, pnum-fp, pnum-fp.  %mil seiscientas setenta
+%grupo-nominal-fp ==> +pnum-fp, pnum-fp, coord, pnum-fp.
+%grupo-nominal-fp ==> +pnum-fp, pnum-fp, pnum-fp, coord, pnum-fp.
+grupo-nominal-fp ==> +n-fp, pos-fp.
+grupo-nominal-fp ==> +n-fp, pdem-fp.
+
+%%%%%%%%%%%%%%%%%%
+%% SN 
+%%%%%%%%%%%%%%%%%%
+
+%title 26.-Sintagma nominal
+
+sn ==> espec-ms-E, +nom-fs-E.
+espec-ms-E ==> DA0MS0(el) | DI0MS0(algún) | DI0MS0(un) | DD0MS0(este).
+
+nom-fs-E ==> NCFS00*(área) | NCFS00*(alma) | NCFS00*(agua). %% etc.
+
+
+sn ==> grupo-nominal.	
+sn ==> grupo-nominal-ms | grupo-nominal-fs | grupo-nominal-mp | grupo-nominal-fp.
+
+sn ==> pron-ms | pron-fs | pron-mp | pron-fp | pron.
+sn ==> +pron-suj-fp, num-fp | +pron-suj-mp, num-mp. 
+
+pron ==> pron-suj-s | pinterrog.
+
+% yo/tú mismo/a
+sn ==> +pron-suj-s, indef-ms | +pron-suj-s, indef-fs.
+% él/ella/nosotr@s/vostr@s/ell@s mism@s
+sn ==> +pron-suj-ms, indef-ms | +pron-suj-fs, indef-fs | +pron-suj-mp, indef-mp | +pron-suj-fp, indef-fp.
+
+% éste/a(s) mismo/a(s)
+sn ==> +pdem-ms, indef-ms | +pdem-fs, indef-fs | +pdem-mp, indef-mp | +pdem-fp, indef-fp.
+
+sn ==> espec-ms, +grupo-nominal-ms | espec-mp, +grupo-nominal-mp | espec-fs, +grupo-nominal-fs | espec-fp, +grupo-nominal-fp.
+
+sn==> espec, +grupo-nominal.
+
+sn ==> pinterrog-s | pinterrog-p.
+
+%el uno
+sn ==> articulo-ms, +pindef-ms | articulo-fs, +pindef-fs | articulo-mp, +pindef-mp | articulo-fp, +pindef-fp.
+
+%algo (muy) bonito 
+sn ==> pindef-ms, +s-a-ms | pindef-fs, +s-a-fs | pindef-mp, +s-a-mp | pindef-fp, +s-a-fp.
+
+sn ==> pnum-ms | pnum-fs | pnum-mp | pnum-fp.
+sn ==> indef-ms, +pnum-ms | indef-fs, +pnum-fs | indef-mp, +pnum-mp | indef-fp, +pnum-fp.
+
+%un poco | muchos otros
+sn ==> indef-ms, +pindef-ms | indef-mp, +pindef-mp | indef-fs, +pindef-fs | indef-fp, +pindef-fp.
+
+%alguno/s de ellos
+sn ==> pindef-ms, SPS00000(de), +pron-suj-mp | pindef-fs, SPS00000(de), +pron-suj-fp.
+sn ==> pindef-mp, SPS00000(de), +pron-suj-mp | pindef-fp, SPS00000(de), +pron-suj-fp.
+
+%JAB%% sn ==> pindef-mp, +sp-de | pindef-fp, +sp-de | pindef-ms, +sp-de | pindef-fs, +sp-de.
+
+
+sn ==> espec-ms, Fe, +grupo-nominal-ms, Fe | espec-fs, Fe, +grupo-nominal-fs, Fe | espec-mp, Fe, +grupo-nominal-mp, Fe.
+sn ==>  espec-fp, Fe, +grupo-nominal-fp, Fe | espec-ms, Fpa, +grupo-nominal-ms, Fpt | espec-fs, Fpa, +grupo-nominal-fs, Fpt.
+sn ==>  espec-mp, Fpa, +grupo-nominal-mp, Fpt | espec-fp, Fpa, +grupo-nominal-fp, Fpt.
+
+sn ==> articulo-ms, +s-a-ms | articulo-fs, +s-a-fs | articulo-mp, +s-a-mp | articulo-fp, +s-a-fp | articulo-ms, +grupo-prep | articulo-fs, +grupo-prep | articulo-mp, +grupo-prep | articulo-fp, +grupo-prep.
+
+sn ==> Fe, +sn, Fe | Fpa, +sn, Fpt.
+
+% (hay)324. | (le pusieron) un 10.
+sn ==> +numero |  espec-ms, +numero.
+
+% entre 100 y 200
+numero ==> +SPS*(entre), numero, CC(y), numero.
+
+%otras 30 (a2) 
+sn ==> espec-mp, +numero | espec-fp, +numero.
+
+%30 italianos (d2)
+sn ==> numero, +s-a-mp | numero, +s-a-fp.
+
+%10 personas
+sn ==> numero, +grupo-nominal-fp | numero, +grupo-nominal-fs | numero, +grupo-nominal-mp | numero, +grupo-nominal-ms.
+
+%estos tres
+sn ==> pdem-mp, +num-mp | pdem-fp, +num-fp.
+
+%los tres son... (c2)
+sn ==> articulo-mp, +pnum-mp | articulo-fp, +pnum-fp.
+
+% un insatisfecho (c2)
+sn ==> indef-ms, +s-a-ms | indef-fs, +s-a-fs | indef-mp, +s-a-mp | indef-fp, +s-a-fp.
+
+% todo este | todo él
+sn ==> indef-ms, +pdem-ms | indef-ms, +pron-suj-ms | indef-mp, +pdem-mp | indef-mp, +pron-suj-mp.
+sn ==>  indef-fs, +pdem-fs | indef-fs, +pron-suj-fs | indef-fp, +pdem-fp | indef-fp, +pron-suj-fp.
+
+%todo lo demás (demás només és plural)
+sn ==> indef-ms, articulo-ms, +pindef-mp | indef-fs, articulo-fs, +pindef-fp.
+
+%éste último
+sn ==> pdem-ms, +s-a-ms | pdem-fs, +s-a-fs | pdem-mp, +s-a-mp | pdem-fp, +s-a-fp.
+
+sn ==> +CC(ni), sn, CC(ni), sn. 
+
+%considerar "ella sola"
+%considerar "un amigo suyo": OK
+%considerar "el chico ése": OK
+%pendent: la substantivació
+
+%%%coordinació de noms a l'interior d'un grup-c-nom:
+%Coordinació purament léxica de noms (no admeten adjacents)
+
+%coord de NPs(c2).
+%grup-c-nom ==> grupo-nominal, +coord, grupo-nominal. 
+
+%grup-c-nom-mp ==>n-mp, +coord, n-fs. %cartones y lata
+%grup-c-nom-mp ==>n-mp, +coord, n-fp. %cartones y latas
+%grup-c-nom-mp ==>n-mp, +coord, n-ms. %cartones y latón
+%grup-c-nom-mp ==>n-mp, +coord, n-mp. %cartones y periódicos 
+%grup-c-nom-mp ==>n-ms, +coord, n-fs. %cartón y lata
+%grup-c-nom-mp ==>n-ms, +coord, n-fp. %cartón y latas
+%grup-c-nom-mp ==>n-ms, +coord, n-ms. %cartón y latón
+%grup-c-nom-mp ==>n-ms, +coord, n-mp. %cartón y periódicos
+
+%grup-c-nom-mp ==>n-fs, +coord, n-mp. %lata y cartones
+%grup-c-nom-mp ==>n-fp, +coord, n-mp. %latas y cartones
+%grup-c-nom-mp ==>n-fs, +coord, n-ms. %lata y cartón
+%grup-c-nom-mp ==>n-fp, +coord, n-ms. %latas y cartón
+
+%grup-c-nom-fp ==>n-fs, +coord, n-fs. %lata y caja
+%grup-c-nom-fp ==>n-fs, +coord, n-fp. %lata y cajas
+%grup-c-nom-fp ==>n-fp, +coord, n-fs. %cajas y lata
+%grup-c-nom-fp ==>n-fp, +coord, n-fp. %cajas y latas
+
+%%coordinació en forma: nom, Fc, n-coord
+%grup-c-nom-mp ==> n-ms, +Fc, grup-c-nom-mp | n-fs, +Fc, grup-c-nom-mp 
+%                | n-mp, +Fc, grup-c-nom-mp | n-fp, +Fc, grup-c-nom-mp.
+%grup-c-nom-fp ==>n-fs, +Fc, grup-c-nom-fp | n-fp, +Fc, grup-c-nom-fp.
+
+%%%%
+%adjectius
+%%%%
+%title 27.-Sintagma adxetivu
+
+s-adj ==> s-a-ms | s-a-fs | s-a-mp | s-a-fp.
+
+s-a-ms ==> Fe, +s-a-ms, Fe | Fpa, +s-a-ms, Fpt.
+s-a-ms ==> a-ms | s-a-ms, +Fc, s-a-ms | s-a-ms, +Fc, s-a-ms, Fs. %enumeració amb .../etc al final
+s-a-ms ==> s-a-ms, +coord, s-a-ms | sadv, +a-ms | +a-ms, s-a-ms. 
+
+s-a-fs ==> Fe, +s-a-fs, Fe | Fpa, +s-a-fs, Fpt.
+s-a-fs ==> a-fs | s-a-fs, +Fc, s-a-fs | s-a-fs, +Fc, s-a-fs, Fs.
+s-a-fs ==> s-a-fs, +coord, s-a-fs | sadv, +a-fs | +a-fs, s-a-fs.
+ 
+s-a-mp ==> Fe, +s-a-mp, Fe | Fpa, +s-a-mp, Fpt.
+s-a-mp ==> a-mp | s-a-mp, +Fc, s-a-mp | s-a-mp, +Fc, s-a-mp, Fs.	
+s-a-mp ==> s-a-mp, +coord, s-a-mp | sadv, +a-mp | +a-mp, s-a-mp. 
+
+s-a-fp ==> Fe, +s-a-fp, Fe | Fpa, +s-a-fp, Fpt.
+s-a-fp ==> a-fp | s-a-fp, +Fc, s-a-fp | s-a-fp, +Fc, s-a-fp, Fs.
+s-a-fp ==> s-a-fp, +coord, s-a-fp | sadv, +a-fp | +a-fp, s-a-fp.
+
+s-a-ms ==> parti-ms.
+s-a-fs ==> parti-fs.
+s-a-mp ==> parti-mp.
+s-a-fp ==> parti-fp.
+
+
+%%%%%%
+% spreps
+%%%%%%
+%title 27.-Grupu preposicional
+
+grupo-prep-inf ==> +prep, grupo-verbal-inf.     %de ser reventada
+grupo-prep-inf ==> +prepc-ms, grupo-verbal-inf. %al ser feliz
+grupo-prep-inf ==> +prep, grupo-verbal-inf.
+grupo-prep ==> +prepc-ms, grupo-nominal-ms. %no hi haurá  "sn"!!
+grupo-prep ==> +prepc-ms, pindef-ms.   %del todo
+grupo-prep ==> +prepc-ms, pposs-ms.    %del mío
+grupo-prep ==> +prep, numero | +prep, data.	
+grupo-prep ==> +prep, s-a-ms | +prep, s-a-mp | +prep, s-a-fs | +prep, s-a-fp.
+grupo-prep ==> +prep, sadv | +prep, sn.
+grupo-prep ==> +prep, pron-tonico.	%para mí.
+grupo-prep ==> +prepc-ms, s-a-ms.	%(propios tanto del lenguaje común como) del científico
+grupo-prep ==> +prepc-ms, W.	%del martes
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%     verbs     %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%title 28.-Verbos
+
+%%%%%%formes personals%%%%%%%%%%%%%%%
+%%formes passives
+%title 29.-Verbos principales, auxiliares, participios, infinitivos y xerundios
+vser ==>  VSI* | VSM* | VSS*.
+
+% verbs principals
+
+verb ==> VMI* | VMM* | VMS*.
+
+% verb ser com principal(es (bueno); hay (gente)): tacat no els agafa
+verb ==>  VSI* | VSM* | VSS*.
+
+% haber: només por ser principal la 3 pers sing
+verb ==>  VAIP3S0. 	%ha
+verb ==>  VAII3S0.  	%habíÂ­a%
+verb ==>  VAIS3S0.  	%hubo%
+verb ==>  VAIF3S0.  	%habrá%
+verb ==>  VAIC3S0.    	%habría%
+verb ==>  VASP3S0.  	%haya%
+verb ==>  VASI3S0.   	%hubiera; hubiese%
+verb ==>  VASF3S0.  	%hubiere%
+
+
+% auxiliares %%!!!el problema és que "hay" y "es" de les atributives
+%%%%%%%%%%%%%%%%%% tbé els dóna com a vaux el morfo: vai... i que
+%%%%%%%%%%%%%%%%%% vaux no es reescriu tot sol.
+
+vaux==> VAI* | VAM* | VAS*.
+
+% aquests participis nomes apareixen en  perífrasis determinades 
+parti-aux ==> VAP00SM.  	%habido
+parti-ser ==> VSP00SM.  	%sido
+
+%participi de temps compostos no passius: participi "principal"
+parti ==> VMP00SM. 	%comido  amado%
+
+%participis flexius: per una banda es poden reescriure com a adjectius;
+%i per l'altra entren als temps passius
+parti-ms ==> VMP00SM. 	%comido  amado%
+parti-mp ==> VMP00PM. 	%comidos  amados%
+parti-fs ==> VMP00SF. 	%comida  amada%
+parti-fp ==> VMP00PF. 	%comidas  amadas%
+
+infaux-ser ==> VSN0000.
+infaux ==> VAN0000. 
+inf ==> VAN00000.	%haber
+inf ==> VSN00000.	%ser
+inf ==> VMN00000. 	%comer  amar%     
+
+ger ==> VMG0000. 	%comiendo  amando%
+ger ==> VAG0000.	%siendo
+geraux ==> VAG0000.
+geraux-ser ==> VSG0000.
+
+%%%%%Perífrasis verbals%%%%%%%%%
+
+%title 30.-Perífrasis verbales
+
+%%%Es generen totes menys les de "haber+que+inf" que només
+%existeix en 3ps i que declaro jo directament:
+
+
+verb ==> VMIC3S00(habría), CS000000(que), +infnitivo.
+verb ==> VMIF3S00(habrá), CS000000(que), +infnitivo.
+verb ==> VMII3S00(habá), CS000000(que), +infnitivo.
+verb ==> VMIP3S00(hai), CS000000(que), +infnitivo.
+verb ==> VMIS3S00(hubo), CS000000(que), +infnitivo.
+verb ==> VMMP3S00(haya), CS000000(que), +infnitivo.
+verb ==> VMN00000(haber), CS000000(que), +infnitivo.
+verb ==> VMSI3S00(hubiere), CS000000(que), +infnitivo.
+verb ==> VMSI3S00(hubiera), CS000000(que), +infnitivo.
+verb ==> VMSP3S00(haya), CS000000(que), +infnitivo.
+ger ==> VMG00000(habiendo), CS000000(que), +infnitivo.
+inf ==> VMN00000(haber), CS000000(que), +infnitivo.
+
+
+%%%Nueva perífrasis asturiana: haber + infinitivo
+
+verb ==> VMIC3S00(habría), +infnitivo.
+verb ==> VMIF3S00(habrá), +infnitivo.
+verb ==> VMII3S00(habá), +infnitivo.
+verb ==> VMIP3S00(hai), +infnitivo.
+verb ==> VMIS3S00(hubo), +infnitivo.
+verb ==> VMMP3S00(haya), +infnitivo.
+verb ==> VMN00000(haber), +infnitivo.
+verb ==> VMSI3S00(hubiere), +infnitivo.
+verb ==> VMSI3S00(hubiera), +infnitivo.
+verb ==> VMSP3S00(haya), +infnitivo.
+ger ==> VMG00000(habiendo), +infnitivo.
+inf ==> VMN00000(haber), +infnitivo.
+
+
+%%%NueVM perífrasis asturiana: haber + de + infinitivo
+
+verb ==> VMIC3S0(habría), SPS00000 (de), +infnitivo.
+verb ==> VMIF3S0(habrá), SPS00000 (de), +infnitivo.
+verb ==> VMII3S0(habá), SPS00000 (de), +infnitivo.
+verb ==> VMIP3S0(hai), SPS00000 (de), +infnitivo.
+verb ==> VMIS3S0(hubo), SPS00000 (de), +infnitivo.
+verb ==> VMMP3S0(haya), SPS00000 (de), +infnitivo.
+verb ==> VMN00000(haber), SPS00000 (de), +infnitivo.
+verb ==> VMSI3S0(hubiere), SPS00000 (de),  +infnitivo.
+verb ==> VMSI3S0(hubiera), SPS00000 (de), +infnitivo.
+verb ==> VMSP3S0(haya), SPS00000 (de), +infnitivo.
+ger ==> VMG0000(habiendo), SPS00000 (de), +infnitivo.
+inf ==> VMN00000(haber), SPS00000 (de),  +infnitivo.
+
+
+%%%Nueva perífrasis asturiana: haber + a + infinitivo
+
+verb ==> VMIC3S00(habría), SPS00000 (a), +infnitivo.
+verb ==> VMIF3S00(habrá), SPS00000 (a), +infnitivo.
+verb ==> VMII3S00(habá), SPS00000 (a), +infnitivo.
+verb ==> VMIP3S00(hai), SPS00000 (a), +infnitivo.
+verb ==> VMIS3S00(hubo), SPS00000 (a), +infnitivo.
+verb ==> VMMP3S00(haya), SPS00000 (a), +infnitivo.
+verb ==> VMN00000(haber), SPS00000 (a), +infnitivo.
+verb ==> VMSI3S00(hubiere), SPS00000 (a),  +infnitivo.
+verb ==> VMSI3S00(hubiera), SPS00000 (a), +infnitivo.
+verb ==> VMSP3S00(haya), SPS00000 (a), +infnitivo.
+ger ==> VMG00000(habiendo), SPS00000 (a), +infnitivo.
+inf ==> VMN00000(haber), SPS00000 (a),  +infnitivo.
+
+
+%%%Nueva perífrasis asturiana: dar + participio
+inf ==>VMN00000(dar), + VMP*.
+
+
+grupo-prep ==> +SPS00000(entre), sn, CC(y), sn.
+parti-flex ==> parti-ms | parti-fs | parti-mp | parti-fp.
+
+gerundi ==> ger | ger-pas | geraux-ser.	
+% la regla geraux-ser no hauria d'afectar les regles "ger" que tenen 
+% geraux-ser a la dreta (passa el mateix amb l'infnitivo)
+
+ger ==> geraux, +parti | geraux, +parti-ser. %habiendo comido | habiendo sido
+ger-pas ==> geraux-ser, +parti-flex | geraux, parti-aux, +parti-flex.
+
+infnitivo ==> inf | inf-pas | infaux-ser.
+inf ==> infaux, +parti | infaux, +parti-ser. %haber cantado | haber sido
+
+grupo-verbal-inf ==> +infnitivo.
+
+%ser amado/a/os/as | haber sido amado
+inf-pas ==> infaux-ser, +parti-flex | infaux, parti-ser, +parti-flex. 
+
+%he dicho |  han sido (escasos) ... ve aixi del MACO
+verb ==> vaux, +parti | vaux, +parti-ser.	
+
+%soy amado/a/os/as | he sido amado/a/os/as
+verb-pass ==> vser, +parti-flex | vaux, parti-ser,+parti-flex. 
+
+grupo-verbal ==> +verb | +verb-pass.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%PERáFRASIS VERBALS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%tiempos compuestos
+%title 31.-Tiempos compuestos
+
+verb ==> vaux, VMP00SM(debido), +infnitivo. %ha debido cantar
+verb ==> vaux, VMP00SM(debido), SPS00000(de), +infnitivo. % ha debido de cantar
+verb ==> vaux, VMP00SM(tenido), CS000000(que),+infnitivo. % ha tenido que cantar
+verb ==> vaux, VMP00SM(habido), SPS00000(de), +infnitivo.%ha habido de cantar
+verb ==> vaux, VMP00SM(podido), +infnitivo.%ha podido cantar
+verb ==> vaux, VMP00SM(ido), SPS00000(a), +infnitivo.%ha ido a cantar
+verb ==> vaux, VMP00SM(empezado), SPS00000(a), +infnitivo.%ha empezado a cantar
+verb ==> vaux, VMP00SM(comenzado), SPS00000(a),+infnitivo.%ha comenzado a llover
+verb ==> vaux, VMP00SM(estado), SPS00000(a_punto_de), +infnitivo.
+verb ==> vaux, VMP00SM(vuelto), SPS00000(a), +infnitivo.
+verb ==> vaux, VMP00SM(acabado), SPS00000(de), +infnitivo.
+verb ==> vaux, VMP00SM(terminado), SPS00000(de), +infnitivo.
+verb ==> vaux, VMP00SM(dejado), SPS00000(de), +infnitivo.
+verb ==> vaux, VMP00SM(llegado), SPS00000(a), +infnitivo.
+verb ==> vaux, VMP00SM(acertado), SPS00000(a), +infnitivo.
+verb ==> vaux, VMP00SM(tardado), SPS00000(en), +infnitivo.
+verb ==> vaux, VMP00SM(acabado), +gerundi.
+verb ==> vaux, VMP00SM(andado), +gerundi.
+verb ==> vaux, VMP00SM(comenzado), +gerundi.
+verb ==> vaux, VMP00SM(empezado), +gerundi.
+verb ==> vaux, VMP00SM(estado), +gerundi.
+verb ==> vaux, VMP00SM(ido), +gerundi.
+verb ==> vaux, VMP00SM(llevado), +gerundi.
+verb ==> vaux, VMP00SM(seguido), +gerundi.
+verb ==> vaux, VMP00SM(terminado), +gerundi.
+verb ==> vaux, VMP00SM(venido), +gerundi.
+inf ==>infaux, VMP00SM(debido), +infnitivo.
+inf ==>infaux, VMP00SM(debido), SPS00000(de), +infnitivo.
+inf ==>infaux, VMP00SM(tenido), CS000000(que), +infnitivo.
+inf ==>infaux, VMP00SM(acabado), SPS00000(de), +infnitivo.
+inf ==>infaux, VMP00SM(comenzado), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(llegado), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(tardado), SPS00000(en), +infnitivo.
+inf ==>infaux, VMP00SM(terminado), SPS00000(de), +infnitivo.
+inf ==>infaux, VMP00SM(acertado), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(dejado), SPS00000(de), +infnitivo.
+inf ==>infaux, VMP00SM(empezado), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(ido), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(vuelto), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(podido), +infnitivo.
+inf ==>infaux, VMP00SM(solido), +infnitivo.
+
+
+%Perífrasis de infinitivo en infinitivo:
+%title 32.-Perífrasis d'infinitivu n'infinitivu
+
+%Aá±adido soporte para las perífrasis siguientes:
+%tener de + inf.; entamar (a) + inf.; acabar por + inf.; andar a +inf.; dexar de + inf.; haber (de/a) + inf.; haber que + inf.; parar de + inf.; ser a/pa + inf.; tar pa + inf.; tar por + inf.; venir a + inf.; venir de + inf.; tener a +inf.; dir a + inf.; dar en + inf.; acabar por + inf.; tar a + inf.; tar al + inf.; tar de + inf.; tar en + inf.; parecer + inf.; querer + inf.; prender a + inf.; tratar de; hubi + inf.; perder de + inf; aforrar de + inf; quitar de + inf.; dexar + inf.; dexar de + inf.; salir + inf.; aguantar a + inf; empezar a + inf; empecipiar a + inf.; comenzar a + inf. (paez que ye válida, nun la suprimas); escomenzar a + inf.; comencipiar a + inf; escomencipiar a + inf;emprimar a + inf.;apenzar a + inf.
+
+inf ==>VMN00000(deber), +infnitivo.
+inf ==>VMN00000(deber), SPS00000(de), +infnitivo.
+inf ==>VMN00000(tener), SPS00000(de), +infnitivo.
+inf ==>VMN00000(tener), SPS00000(a), +infnitivo.
+inf ==>VMN00000(tener), CS000000(que), +infnitivo.
+inf ==>VMN00000(poder), +infnitivo.
+inf ==>VMN00000(dir), SPS00000(a), +infnitivo.
+inf ==>VMN00000(andar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(entamar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(entamar),+infnitivo.
+inf ==>VMN00000(comenzar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(echar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(volver), SPS00000(a), +infnitivo.
+inf ==>VMN00000(soler), +infnitivo.
+inf ==>VMN00000(acabar), SPS00000(de), +infnitivo.
+inf ==>VMN00000(acabar), SPS00000(por), +infnitivo.
+inf ==>VMN00000(terminar), SPS00000(de), +infnitivo.
+inf ==>VMN00000(dexar),  +infnitivo.
+inf ==>VMN00000(dexar), SPS00000(de), +infnitivo.
+inf ==>VMN00000(venir), SPS00000(a), +infnitivo.
+inf ==>VMN00000(llegar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(acertar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(tardar), SPS00000(en), +infnitivo.
+inf ==>VMN00000(haber), SPS00000(de), +infnitivo.
+inf ==>VMN00000(haber), SPS00000(a), +infnitivo.
+inf ==>VMN00000(haber), CS000000(que), +infnitivo.
+inf ==>VMN00000(parar), SPS00000(de), +infnitivo.
+inf ==>VMN00000(ser), SPS00000(a), +infnitivo.
+inf ==>VMN00000(ser), SPS00000(pa), +infnitivo.
+inf ==>VMN00000(tar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(tar), SPS00000(por), +infnitivo.
+inf ==>VMN00000(tar), *(al), +infnitivo.
+inf ==>VMN00000(tar), SPS00000(de), +infnitivo.
+inf ==>VMN00000(tar), SPS00000(en), +infnitivo.
+inf ==>VMN00000(venir), SPS00000(de), +infnitivo.
+inf ==>VMN00000(dar), SPS00000(en), +infnitivo.
+inf ==>VMN00000(parecer), +infnitivo.
+inf ==>VMN00000(querer), +infnitivo.
+inf ==>VMN00000(prender), SPS00000(a), +infnitivo.
+inf ==>VMN00000(tratar), SPS00000(de), +infnitivo.
+inf ==>VMN00000(perder), SPS00000(de), +infnitivo.
+inf ==>VMN00000(aforrar), SPS00000(de), +infnitivo.
+inf ==>VMN00000(quitar), SPS00000(de), +infnitivo.
+inf ==>VMN00000(salir), +infnitivo.
+inf ==>VMN00000(aguantar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(empezar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(empecipiar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(comenzar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(escomenzar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(comencipiar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(escomencipiar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(emprimar), SPS00000(a), +infnitivo.
+inf ==>VMN00000(apenzar), SPS00000(a), +infnitivo.
+
+%aá±adidas
+inf ==>infaux, VMP00SM(debido), +infnitivo.
+inf ==>infaux, VMP00SM(debido), SPS00000(de), +infnitivo.
+inf ==>infaux, VMP00SM(tenido), CS000000(que), +infnitivo.
+inf ==>infaux, VMP00SM(acabado), SPS00000(de), +infnitivo.
+inf ==>infaux, VMP00SM(acostumbrado), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(comenzado), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(echado), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(llegado), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(roto), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(tardado), SPS00000(en), +infnitivo.
+inf ==>infaux, VMP00SM(terminado), SPS00000(de), +infnitivo.
+inf ==>infaux, VMP00SM(acertado), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(alcanzado), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(dejado), SPS00000(de), +infnitivo.
+inf ==>infaux, VMP00SM(empezado), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(ido), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(vuelto), SPS00000(a), +infnitivo.
+inf ==>infaux, VMP00SM(podido), +infnitivo.
+inf ==>infaux, VMP00SM(solido), +infnitivo.
+
+
+%title 33.-Perífrasis de xerundio n'infinitivu
+inf ==>VMN00000(tar), +gerundi.
+inf ==>VMN00000(acabar), +gerundi.
+inf ==>VMN00000(andar), +gerundi.
+inf ==>VMN00000(comenzar), +gerundi.
+inf ==>VMN00000(continuar), +gerundi.
+inf ==>VMN00000(entamar), +gerundi.
+inf ==>VMN00000(dir), +gerundi.
+inf ==>VMN00000(llevar), +gerundi.
+inf ==>VMN00000(terminar), +gerundi.
+inf ==>VMN00000(siguir),+gerundi.
+inf ==>VMN00000(venir), +gerundi.
+inf ==> infaux, VMP00SM(estado), +gerundi.
+inf ==> infaux, VMP00SM(acabado), +gerundi.
+inf ==> infaux, VMP00SM(andado), +gerundi.
+inf ==> infaux, VMP00SM(comenzado), +gerundi.
+inf ==> infaux, VMP00SM(continuado), +gerundi.
+inf ==> infaux, VMP00SM(empezado), +gerundi.
+inf ==> infaux, VMP00SM(dío), +gerundi.
+inf ==> infaux, VMP00SM(llevado), +gerundi.
+inf ==> infaux, VMP00SM(terminado), +gerundi.
+inf ==> infaux, VMP00SM(seguío), +gerundi.
+inf ==> infaux, VMP00SM(venío), +gerundi.
+
+
+%title 34.-Perífrasis d'infinitivu en xerundio
+
+%Modificaciones en diendo, entamando, acostumando y dexando.
+ger ==>VMG00000(debiendo), +infnitivo.
+ger ==>VMG00000(debiendo), SPS00000(de), +infnitivo.
+ger ==>VMG00000(teniendo), CS000000(que), +infnitivo.
+ger ==>VMG00000(pudiendo), +infnitivo.
+ger ==>VMG00000(diendo), SPS00000(a), +infnitivo.
+ger ==>VMG00000(entamando), SPS00000(a), +infnitivo.
+ger ==>VMG00000(echando), SPS00000(a), +infnitivo.
+ger ==>VMG00000(rompiendo), SPS00000(a), +infnitivo.
+ger ==>VMG00000(volviendo), SPS00000(a), +infnitivo.
+ger ==>VMG00000(acostumando),SPS00000(a), +infnitivo.
+ger ==>VMG00000(acabando), SPS00000(de), +infnitivo.
+ger ==>VMG00000(terminando), SPS00000(de), +infnitivo.
+ger ==>VMG00000(dexando), SPS00000(de), +infnitivo.
+ger ==>VMG00000(viniendo), SPS00000(a), +infnitivo.
+ger ==>VMG00000(llegando), SPS00000(a), +infnitivo.
+ger ==>VMG00000(acertando), SPS00000(a), +infnitivo.
+ger ==>VMG00000(alcanzando), SPS00000(a), +infnitivo.
+ger ==>VMG00000(tardando), SPS00000(en), +infnitivo.
+ger ==>VAG00000(habiendo), SPS00000(de), +infnitivo.
+
+
+
+%title 35.-Perífrasis de xerundio en xerundio
+%Son perfectamente posibles en asturianocon valor temporal o condicional
+%únicamente hay que hacer las traduciones correspondientes para  entamando, tando y diendo.
+
+ger ==> VMG00000(acabando), +gerundi.
+ger ==> VMG00000(andando), +gerundi.
+ger ==> VMG00000(entamando), +gerundi.
+ger ==> VMG00000(continuando), +gerundi.
+ger ==> VMG00000(empezando), +gerundi.
+ger ==> VMG00000(tando), +gerundi.
+ger ==> VMG00000(diendo), +gerundi.
+ger ==> VMG00000(llevando), +gerundi.
+ger ==> VMG00000(siguiendo), +gerundi.
+ger ==> VMG00000(terminando), +gerundi.
+ger ==> VMG00000(viniendo), +gerundi.
+
+
+%title 36.-Perífrasis indicatives y subxuntives
+
+%Aá±adido soporte para las perífrasis siguientes:
+%tener de + inf.; entamar (a) + inf.; acabar por + inf.; andar a +inf.; dexar de + inf.; haber (de/a) + inf.; haber que + inf.; parar de + inf.; ser a/pa + inf.; tar pa + inf.; tar por + inf.; venir a + inf.; venir de + inf.; tener a +inf.; dir a + inf.; dar en + inf.; acabar por + inf.; tar a + inf.; tar al + inf.; tar de + inf.; tar en + inf.; parecer + inf.; querer + inf.; prender a + inf.; tratar de; hubi + inf.; perder de + inf; aforrar de + inf; quitar de + inf.; dexar + inf.; dexar de + inf.; salir + inf.; aguantar a + inf; empezar a + inf; empecipiar a + inf.; comenzar a + inf.; escomenzar a + inf.; comencipiar a + inf; escomencipiar a + inf;emprimar a + inf.;apenzar a + inf.
+
+
+verb ==> VMI*<deber>, +infnitivo | VMS*<deber>, +infnitivo.
+verb ==> VMI*<deber>, SPS00000(de), +infnitivo | VMS*<deber>, SPS00000(de), +infnitivo.
+verb ==> VMI*<tener>, CS000000(que), +infnitivo | VMS*<tener>, CS000000(que), +infnitivo.
+verb ==> VMI*<tener>, SPS00000(de), +infnitivo | VMS*<tener>, SPS00000(de), +infnitivo.
+verb ==> VMI*<poder>, +infnitivo | VMS*<poder>, +infnitivo.
+verb ==> VMI*<dir>, SPS00000(a), +infnitivo | VMS*<dir>, SPS00000(a), +infnitivo.
+verb ==> VMI*<entamar>, SPS00000(a), +infnitivo | VMS*<entamar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<entamar>, +infnitivo | VMS*<entamar>, +infnitivo.
+verb ==> VMI*<comenzar>, SPS00000(a), +infnitivo | VMS*<comenzar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<echar>, SPS00000(a), +infnitivo | VMS*<echar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<echarse>, SPS00000(a), +infnitivo | VMS*<echarse>, SPS00000(a), +infnitivo.
+verb ==> VMI*<romper>, SPS00000(a), +infnitivo | VMS*<romper>, SPS00000(a), +infnitivo.
+verb ==> VMI*<volver>, SPS00000(a), +infnitivo | VMS*<volver>, SPS00000(a), +infnitivo.
+verb ==> VMI*<acostumbrar>, SPS00000(a), +infnitivo | VMS*<acostumbrar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<tar>, SPS00000(a_punto_de), +infnitivo | VMS*<tar>, SPS00000(a_punto_de), +infnitivo.
+verb ==> VMI*<soler>, +infnitivo | VMS*<soler>, +infnitivo.
+verb ==> VMI*<acabar>, SPS00000(de), +infnitivo | VMS*<acabar>, SPS00000(de), +infnitivo.
+verb ==> VMI*<acabar>, SPS00000(por), +infnitivo | VMS*<acabar>, SPS00000(por), +infnitivo.
+verb ==> VMI*<terminar>, SPS00000(de), +infnitivo | VMS*<terminar>, SPS00000(de), +infnitivo.
+verb ==> VMI*<dexar>, SPS00000(de), +infnitivo | VMS*<dexar>, SPS00000(de), +infnitivo.
+verb ==> VMI*<llegar>, SPS00000(a), +infnitivo | VMS*<llegar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<acertar>, SPS00000(a), +infnitivo | VMS*<acertar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<alcanzar>, SPS00000(a), +infnitivo | VMS*<alcanzar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<tardar>, SPS00000(en), +infnitivo | VMS*<tardar>, SPS00000(en), +infnitivo.
+verb ==> VMI*<acabar>, +gerundi | VMS*<acabar>, +gerundi.
+verb ==> VMI*<andar>, +gerundi | VMS*<andar>, +gerundi.
+verb ==> VMI*<comenzar>, +gerundi | VMS*<comenzar>, +gerundi.
+verb ==> VMI*<entamar>, +gerundi | VMS*<entamar>, +gerundi.
+verb ==> VMI*<continuar>, +gerundi | VMS*<continuar>, +gerundi.
+verb ==> VMI*<tar>, +gerundi | VMS*<tar>, +gerundi.
+verb ==> VMI*<dir>, +gerundi | VMS*<dir>, +gerundi.
+verb ==> VMI*<llevar>, +gerundi | VMS*<llevar>, +gerundi.
+verb ==> VMI*<siguir>, +gerundi | VMS*<siguir>, +gerundi.
+verb ==> VMI*<terminar>, +gerundi | VMS*<terminar>, +gerundi.
+verb ==> VMI*<venir>, +gerundi | VMS*<venir>, +gerundi.
+verb ==> VAI*<haber>, SPS00000(de), +infnitivo | VAS*<haber>, SPS00000(de), +infnitivo | VAC*<haber>, SPS00000(de), +infnitivo.
+verb ==> VMI*<andar>, SPS00000(a), +infnitivo | VMS*<andar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<haber>, SPS00000(a), +infnitivo | VMS*<haber>, SPS00000(a), +infnitivo.
+verb ==> VMI*<ser>, SPS00000(a), +infnitivo | VMS*<ser>, SPS00000(a), +infnitivo.
+verb ==> VMI*<venir>, SPS00000(a), +infnitivo | VMS*<venir>, SPS00000(a), +infnitivo.
+verb ==> VMI*<dir>, SPS00000(a), +infnitivo | VMS*<dir>, SPS00000(a), +infnitivo.
+verb ==> VMI*<tener>, SPS00000(a), +infnitivo | VMS*<tener>, SPS00000(a), +infnitivo.
+verb ==> VMI*<tar>, SPS00000(a), +infnitivo | VMS*<tar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<prender>, SPS00000(a), +infnitivo | VMS*<prender>, SPS00000(a), +infnitivo.
+verb ==> VMI*<aguantar>, SPS00000(a), +infnitivo | VMS*<aguantar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<empezar>, SPS00000(a), +infnitivo | VMS*<empezar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<empecipiar>, SPS00000(a), +infnitivo | VMS*<empecipiar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<comenzar>, SPS00000(a), +infnitivo | VMS*<comenzar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<escomenzar>, SPS00000(a), +infnitivo | VMS*<escomenzar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<comencipiar>, SPS00000(a), +infnitivo | VMS*<comencipiar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<escomencipiar>, SPS00000(a), +infnitivo | VMS*<escomencipiar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<emprimar>, SPS00000(a), +infnitivo | VMS*<emprimar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<apenzar>, SPS00000(a), +infnitivo | VMS*<apenzar>, SPS00000(a), +infnitivo.
+verb ==> VMI*<parar>, SPS00000(de), +infnitivo | VMS*<parar>, SPS00000(de), +infnitivo.
+verb ==> VMI*<haber>, SPS00000(de), +infnitivo | VMS*<haber>, SPS00000(de), +infnitivo.
+verb ==> VMI*<venir>, SPS00000(de), +infnitivo | VMS*<venir>, SPS00000(de), +infnitivo.
+verb ==> VMI*<tratar>, SPS00000(de), +infnitivo | VMS*<tratar>, SPS00000(de), +infnitivo.
+verb ==> VMI*<perder>, SPS00000(de), +infnitivo | VMS*<perder>, SPS00000(de), +infnitivo.
+verb ==> VMI*<aforrar>, SPS00000(de), +infnitivo | VMS*<aforrar>, SPS00000(de), +infnitivo.
+verb ==> VMI*<perder>, SPS00000(de), +infnitivo | VMS*<perder>, SPS00000(de), +infnitivo.
+verb ==> VMI*<ser>, SPS00000(pa), +infnitivo | VMS*<ser>, SPS00000(pa), +infnitivo.
+verb ==> VMI*<tar>, SPS00000(pa), +infnitivo | VMS*<tar>, SPS00000(pa), +infnitivo.
+verb ==> VMI*<tar>, SPS00000(por), +infnitivo | VMS*<tar>, SPS00000(por), +infnitivo.
+verb ==> VMI*<acabar>, SPS00000(por), +infnitivo | VMS*<acabar>, SPS00000(por), +infnitivo.
+verb ==> VMI*<parecer>, +infnitivo | VMS*<parecer>, +infnitivo.
+verb ==> VMI*<querer>, +infnitivo | VMS*<querer>, +infnitivo.
+verb ==> VMI*<salir>, +infnitivo | VMS*<salir>, +infnitivo.
+verb ==> VMI*<dexar>, +infnitivo | VMS*<dexar>, +infnitivo.
+verb ==> VMI*<dar>, SPS00000(en), +infnitivo | VMS*<dar>, SPS00000(en), +infnitivo.
+verb ==> VMI*<tar>, SPS00000(en), +infnitivo | VMS*<tar>, SPS00000(en), +infnitivo. 
+
+%%%%%%%%
+%EL SINTAGMA ADVERBIAL
+%%%%%%%%%
+%title 37.-Sintagma alverbial
+
+sadv ==> adv-interrog.
+sadv ==> RG.
+
+sadv ==> cuantif, +sadv.
+
+%adverbis 'transitius(+/-)' %13-05-02
+sadv ==> +RG(cerca), SPS00000(de), sn. %cerca de 10 persones
+sadv ==> +RG(llueñe), SPS00000(de), sn.
+sadv ==> +RG(riba), SPS00000(de), sn. %con arriba también valdría, pero solo en "arriba del too", lo que no sé si implica reformular la regla; igual hay que hacer lo propio con formas como "enriba", e incluso con preposición "de riba" (viven nun pueblu de riba de Grao Â¿o para meter esta preposición hai que formular otra regla? Si es el caso lo dejo a tu criterio; eso sí, habría que meter otras especificaciones: perriba, pembaxo, etc... No sé si te trae cuenta en este momento)
+sadv ==> +RG(riba), sn.
+sadv ==> +RG(debaxo), SPS00000(de), sn. %idem: "embaxo"; con abaxo, solo se prodía en la construcción "abaxo del too")
+sadv ==> +RG(debaxo), sn.
+sadv ==> +RG(después), SPS00000(de), sn.%idem depués, dempués, espués)
+sadv ==> +RG(antes), SPS00000(de), sn. %idem enantes)
+sadv ==> +RG(fora), SPS00000(de), sn.
+sadv ==> +RG(fora), sn.
+sadv ==> +RG(dientro), SPS00000(de), sn.
+sadv ==> +RG(dientro), sn.
+sadv ==> +RG(delantre), SPS00000(de), sn.%idem alantre, aunque solo en "alantre del too", lo que igual es otra regla distinta...
+sadv ==> +RG(delantre), sn.
+sadv ==> +RG(detrás), SPS00000(de), sn. %idem atrás, aunque solo en "atrás del too",)
+sadv ==> +RG(encima), SPS00000(de), sn. %idem cima)
+sadv ==> +RG(encima),  sn.
+sadv ==> +RG(más), SPS00000(de), sn.
+sadv ==> +RG(menos), SPS00000(de), sn. %EliC menos de residuos
+sadv ==> +RG(enfrente), SPS00000(de), sn. %idem frente: frente mio casa hai una panadería)
+sadv ==> +RG(frente), SPS00000(a), sn.
+sadv ==> +RG(enfrente), sn. %idem frente: frente mio casa hai una panadería)
+sadv ==> +RG(frente), sn.
+sadv ==> +RG(xunto), SPS00000(a), sn.
+sadv ==> SPCMS(al), +RG(menos), sn. %de al menos(yo esta regla con "al menos" quitaríala pa especificar "polo menos" o "lo menos" o "siquier")
+
+
+
+sadv ==> +RG(cerca), SPS00000(de), +sadv. %cerca de 10 persones
+sadv ==> +RG(llueñe), SPS00000(de), +sadv.
+sadv ==> +RG(riba), SPS00000(de), +sadv. %con arriba también valdría, pero solo en "arriba del too", lo que no sé si implica reformular la regla; igual hay que hacer lo propio con formas como "enriba", e incluso con preposición "de riba" (viven nun pueblu de riba de Grao Â¿o para meter esta preposición hai que formular otra regla? Si es el caso lo dejo a tu criterio; eso sí, habría que meter otras especificaciones: perriba, pembaxo, etc... No sé si te trae cuenta en este momento)
+sadv ==> +RG(debaxo), SPS00000(de), +sadv. %idem: "embaxo"; con abaxo, solo se prodía en la construcción "abaxo del too")
+sadv ==> +RG(después), SPS00000(de), +sadv.%idem depués, dempués, espués)
+sadv ==> +RG(antes), SPS00000(de), +sadv. %idem enantes)
+sadv ==> +RG(fora), SPS00000(de), +sadv.
+sadv ==> +RG(dientro), SPS00000(de), +sadv.
+sadv ==> +RG(delantre), SPS00000(de), +sadv.%idem alantre, aunque solo en "alantre del too", lo que igual es otra regla distinta...
+sadv ==> +RG(detrás), SPS00000(de), +sadv. %idem atrás, aunque solo en "atrás del too",)
+sadv ==> +RG(encima), SPS00000(de), +sadv. %idem cima)
+sadv ==> +RG(más), SPS00000(de), +sadv.
+sadv ==> +RG(menos), SPS00000(de), +sadv. %EliC menos de residuos
+sadv ==> +RG(enfrente), SPS00000(de), +sadv. %idem frente: frente mio casa hai una panadería)
+sadv ==> +RG(frente), SPS00000(a), +sadv.
+sadv ==> +RG(xunto), SPS00000(a), +sadv.
+
+
+
+%%
+%% Inici JAB Added rules 
+%%
+
+%% Participi que funciona com a nom "un impreso" "un comunicado"  "nuos comunicados"  ?? una imprimida ??
+grupo-nominal-ms ==> espec-ms, +parti-ms.
+grupo-nominal-mp ==> espec-mp, +parti-mp.
+grupo-nominal-fs ==> espec-fs, +parti-fs.
+grupo-nominal-fp ==> espec-fp, +parti-fp.
+
+
+%%
+%% el indice  se calcula 
+%% el tager diu P0000000 ??
+%%
+grupo-verbal ==> morfema-verbal, +grupo-verbal.
+grupo-verbal ==> morfema-verbal, pron-atonos, +grupo-verbal.
+grupo-verbal ==> pron-atonos, +grupo-verbal.
+
+%% per si el tagger separa clitiCS000000
+grupo-verbal ==> +verb, PP* | +verb, PP*, PP* | +verb, PP*, PP*, PP*.
+
+%%
+%% Fi JAB added rules
+%%
+
+%%Eli's rules for Punctuation%%
+%Per tractar tot el q no siguin comes.
+F-no-c ==> Faa | Fca | Fct | Fd | Fe | Fg | Fh | Fia | Fla | Flt | Fpa | Fpt | Fra | Frc | Fs | Ft | Fx | Fz.
+
+F-term ==> Fp | Fit | Fat.   %%   sentence terminators "."  "?" and "!"
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Control directives
+
+%% -------------------------
+%% NOTOP: Categories not considered as valid tree roots.  
+%% -------------------------
+% @NOTOP xyz.
+
+%% -------------------------
+%% START: Specify which is the start symbol of the grammar. If the result of the parsing 
+%% is not a complete tree, or no valid root nodes are found, a fictitious root node is
+%%  created  with this label.
+%% -------------------------
+@START S.
+
+%% -------------------------
+%% FLAT: Trees for "flat" categories are flattened when the category is recursive. 
+%% Only the highest occurrence appears in the final tree.
+%% -------------------------
+%%@FLAT grupo-nominal-ms grupo-nominal-fs grupo-nominal-mp grupo-nominal-fp.
+
+
+
+%% -------------------------
+%% Priority definitions: decreasing priority downwards and rightwards in
+%% the following list.  When two chart edges cover the same subsentence,
+%% the edge with highest prioriy will be included the final parse tree.
+%% -------------------------
+@PRIOR verb-pass grupo-verbal grupo-verbal-inf. 
+@PRIOR data s-adj parti-flex.
+@PRIOR sn pron-atonos. 
+@PRIOR verb vaux vser.
+@PRIOR grupo-nominal-ms grupo-nominal-fs grupo-nominal-mp grupo-nominal-fp.
+@PRIOR sadv espec-ms espec-fs espec-mp espec-fp.
+@PRIOR sp-de.
+@PRIOR F-no-c.  %te prioritat la regla per qualsevol puntuacio que no sigui coma.
+@PRIOR pron-suj.
